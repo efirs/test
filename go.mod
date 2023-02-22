@@ -1,4 +1,4 @@
-module test
+module github.com/efirs/test
 
 go 1.19
 

@@ -12,8 +12,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - BRANCH
     environment:
-      - TIGRIS_URL=tigris-local-server:8081
+      - TIGRIS_URL
+      - TIGRIS_CLIENT_ID
+      - TIGRIS_CLIENT_SECRET
     ports:
       - "8080:8080"
     depends_on:

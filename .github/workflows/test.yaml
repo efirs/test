@@ -1,0 +1,22 @@
+name: go-test
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install Task
+        uses: arduino/setup-task@v1
+
+      - name: Prepare tests
+        run: |
+          git branch --show-current
+          npm i -g @tigrisdata/tigris-cli
+          tigris branch reset $(git branch --show-current)
+
+      - name: Run tests
+        run: task test

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+#OLD="$0"
+#NEW="$1"
+FLAG=$2
+
+# this is not branch checkout
+if [ -z "$FLAG" ]; then
+	exit 0
+fi
+
+#shellcheck disable=SC1091
+eval "$(cat .env 2>/dev/null)"
+eval "$(cat .env.local 2>/dev/null)"
+
+export TIGRIS_URL
+export TIGRIS_CLIENT_ID
+export TIGRIS_CLIENT_SECRET
+
+CLI=../../../tigris
+
+BRANCH=$(git branch --show-current)
+#TIGRIS_BRANCH=$(bin/tigris branch show --project test)
+TIGRIS_BRANCH=$($CLI branch show)
+
+# Already on this branch
+if [ "$BRANCH" == "$TIGRIS_BRANCH" ]; then
+	exit 0
+fi
+
+$CLI branch --project=test checkout --create "$BRANCH" | sed 's/^/[Tigris] /'

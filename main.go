@@ -2,19 +2,26 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"os"
 	"time"
 
+	"github.com/efirs/test/model"
+	"github.com/efirs/test/route"
+
 	"github.com/gin-gonic/gin"
-	"test/model"
-	"test/route"
 	"github.com/tigrisdata/tigris-client-go/tigris"
 )
+
+var Branch string // set duing build time from the Git branch
 
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	client, err := tigris.NewClient(ctx, &tigris.Config{Project: "test"})
+	fmt.Printf("Tigris: Project=test, Branch=%s URL: %s\n", Branch, os.Getenv("TIGRIS_URL"))
+
+	client, err := tigris.NewClient(ctx, &tigris.Config{Project: "test", Branch: Branch})
 
 	if err != nil {
 		panic(err)
