@@ -1,4 +1,5 @@
 .task
 .env
+.env.local
 bin
 

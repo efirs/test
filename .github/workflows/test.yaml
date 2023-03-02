@@ -2,6 +2,13 @@ name: go-test
 on:
   push:
   pull_request:
+
+env:
+  TIGRIS_URL: api.dev.tigrisdata.cloud
+  TIGRIS_PROJECT: test
+  TIGRIS_CLIENT_ID: ${{secrets.TIGRIS_CLIENT_ID }}
+  TIGRIS_CLIENT_SECRET: ${{secrets.TIGRIS_CLIENT_SECRET }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
