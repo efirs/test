@@ -19,10 +19,7 @@ tasks:
     status:
       - bin/tigris ping || echo "$TIGRIS_URL" | grep -v "localhost"
     cmds:
-      - docker compose up -d tigris
-      - bin/tigris ping --timeout=20s
-      - bin/tigris create project test
-      - bin/tigris branch create $BRANCH
+      - bin/tigris local up --create-project test --create-branch $BRANCH
 
   run:
     desc: Start the project

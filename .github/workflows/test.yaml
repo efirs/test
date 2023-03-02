@@ -16,7 +16,7 @@ jobs:
         run: |
           git branch --show-current
           npm i -g @tigrisdata/tigris-cli
-          tigris branch reset $(git branch --show-current)
+          tigris branch -p test reset $(git branch --show-current)
 
       - name: Run tests
         run: task test
